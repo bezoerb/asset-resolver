@@ -22,7 +22,7 @@ module.exports.getResource = function (file, opts) {
 
 	return Promise.any(map(opts.base, function (base) {
 		return resolver.getResource(base, file, opts);
-	})).catch(function(err) {
+	})).catch(function (err) {
 		debug(err.message || err);
 		if (!opts.base.length || opts.base[0] === process.cwd()) {
 			return Promise.reject('The file "' + file + '" could not be resolved. Try adding base paths.');

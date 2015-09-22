@@ -18,9 +18,9 @@ var cli = meow({
 		'...',
 		'</svg>'
 	]
-}, { alias: { b: 'base' } });
+}, {alias: {b: 'base' }});
 
-resolver.getResource(cli.input[0],cli.flags).then(function (resource) {
+resolver.getResource(cli.input[0], cli.flags).then(function (resource) {
 	console.log(resource.contents);
 }).catch(function (err) {
 	console.error(err.message || err);

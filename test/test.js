@@ -49,8 +49,8 @@ describe('postcss-image-inliner', function () {
 	});
 
 	it('should find the file by file', function (done) {
-		check('check.svg', ['//localhost:3000/test/', path.join(__dirname,'fixtures')], function (resource) {
-			expect(resource.path).to.eql(path.join(__dirname,'fixtures','check.svg'));
+		check('check.svg', ['//localhost:3000/test/', path.join(__dirname, 'fixtures')], function (resource) {
+			expect(resource.path).to.eql(path.join(__dirname, 'fixtures', 'check.svg'));
 			expect(resource.mime).to.eql('image/svg+xml');
 			done();
 		});
