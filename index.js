@@ -24,10 +24,6 @@ module.exports.getResource = function (file, opts) {
 		return resolver.getResource(base, file, opts);
 	})).catch(function (err) {
 		debug(err.message || err);
-		if (!opts.base.length || opts.base[0] === process.cwd()) {
-			return Promise.reject('The file "' + file + '" could not be resolved. Try adding base paths.');
-		} else {
-			return Promise.reject('The file "' + file + '" could not be resolved in:' + os.EOL + ' - ' + opts.base.join(os.EOL + ' - '));
-		}
+		return Promise.reject('The file "' + file + '" could not be resolved in:' + os.EOL + ' - ' + opts.base.join(os.EOL + ' - '));
 	});
 };
