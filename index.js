@@ -26,9 +26,7 @@ module.exports.getResource = function (file, opts) {
 
 	return Promise.any(map(opts.base, function (base) {
 		return resolver.getResource(base, file, opts);
-	})).then(function (resource) {
-		return resource;
-	}).catch(Promise.AggregateError, function (errs) {
+	})).catch(Promise.AggregateError, function (errs) {
 		var msg = ['The file "' + file + '" could not be resolved because of:'].concat(pluck(errs, 'message'));
 		debug(msg);
 		return Promise.reject(new Error(msg.join(os.EOL)));

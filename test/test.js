@@ -9,7 +9,7 @@ var Promise = require('es6-promise').Promise;
 var path = require('path');
 
 function read(file) {
-	return fs.readFileSync(path.join(__dirname, 'fixtures', file), 'binary');
+	return fs.readFileSync(path.join(__dirname, 'fixtures', file));
 }
 
 function startServer(docroot) {

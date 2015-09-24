@@ -50,7 +50,8 @@ List of directories/urls where we should start looking for assets.
 Type: `function` 
 Default: `function(){ return true; }` 
 Required: `false`
-Example: ```javascript
+Example: 
+```javascript
 resolver.getResource('my.svg',{
 	base: ['some/directory','http://some.domain/assets'],
 	filter: function (resource) {
