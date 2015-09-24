@@ -5,6 +5,7 @@ var http = require('http');
 var serveStatic = require('serve-static');
 var resolver = require('../');
 var fs = require('fs');
+var Promise = require('es6-promise').Promise;
 var path = require('path');
 
 function read(file) {
@@ -22,15 +23,21 @@ function startServer(docroot) {
 	return server;
 }
 
-function check(file, base, done) {
+function check(file, base, filter, done) {
+	if (!done && filter) {
+		done = filter;
+		filter = function () {
+			return true;
+		};
+	}
 	var contents = read(file);
-	resolver.getResource(file, {base: base}).then(function (resource) {
+	resolver.getResource(file, {base: base, filter: filter}).then(function (resource) {
 		expect(resource.contents).to.eql(contents);
 		done(resource);
-	});
+	}).catch(done);
 }
 
-describe('postcss-image-inliner', function () {
+describe('asset-resolver', function () {
 	var server;
 
 	beforeEach(function () {
@@ -52,6 +59,38 @@ describe('postcss-image-inliner', function () {
 		check('check.svg', ['//localhost:3000/test/', path.join(__dirname, 'fixtures')], function (resource) {
 			expect(resource.path).to.eql(path.join(__dirname, 'fixtures', 'check.svg'));
 			expect(resource.mime).to.eql('image/svg+xml');
+			done();
+		});
+	});
+
+	it('should use consider sync filter', function (done) {
+		check('blank.gif', ['//localhost:3000/', 'fixtures'], function (resource) {
+			expect(resource.path).to.eql('http://localhost:3000/blank.gif');
+			expect(resource.mime).to.eql('image/gif');
+			return resource.path !== 'http://localhost:3000/blank.gif';
+		}, function (err) {
+			expect(err).to.be.an.instanceof(Error);
+			expect(err.message).to.have.string('blank.gif');
+			expect(err.message).to.have.string('could not be resolved');
+			expect(err.message).to.have.string('rejected by filter');
+			done();
+		});
+	});
+
+	it('should use consider async filter returning a promise', function (done) {
+		check('check.svg', ['//localhost:3000/test/', path.join(__dirname, 'fixtures')], function (resource) {
+			return new Promise(function (resolve, reject) {
+				setTimeout(function () {
+					expect(resource.path).to.eql(path.join(__dirname, 'fixtures', 'check.svg'));
+					expect(resource.mime).to.eql('image/svg+xml');
+					reject(new Error('FINE'));
+				}, 1000);
+			});
+		}, function (err) {
+			expect(err).to.be.an.instanceof(Error);
+			expect(err.message).to.have.string('check.svg');
+			expect(err.message).to.have.string('could not be resolved');
+			expect(err.message).to.have.string('FINE');
 			done();
 		});
 	});

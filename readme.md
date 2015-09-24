@@ -40,8 +40,26 @@ The filename
 
 Type: `string`,`array` 
 Default: `[process.cwd()]` 
-Example: `['http://domain.de/', 'http://domain.de/styles', 'app/images']` 
 Required: `false`
+Example: `['http://domain.de/', 'http://domain.de/styles', 'app/images']` 
+
+List of directories/urls where we should start looking for assets. 
+
+##### filter
+
+Type: `function` 
+Default: `function(){ return true; }` 
+Required: `false`
+Example: ```javascript
+resolver.getResource('my.svg',{
+	base: ['some/directory','http://some.domain/assets'],
+	filter: function (resource) {
+		return filesize(resource) < maxFileSize;
+	}
+}).then(function(resource) {
+	console.log(resource)
+});
+```
 
 List of directories/urls where we should start looking for assets. 
 
