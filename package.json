@@ -22,9 +22,8 @@
     "lib"
   ],
   "keywords": [
-    "cli-app",
-    "cli",
-    ""
+    "asset",
+    "resolve"
   ],
   "dependencies": {
     "bluebird": "^2.10.1",
