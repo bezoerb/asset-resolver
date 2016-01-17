@@ -2,7 +2,7 @@
  * Created by ben on 17.09.15.
  */
 var resolver = require('./lib/resolver');
-var toarray = require('lodash/toarray');
+var toarray = require('lodash/toArray');
 var defaults = require('lodash/defaults');
 var map = require('lodash/map');
 var debug = require('debug')('asset-resolver');
