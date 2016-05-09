@@ -1,4 +1,4 @@
-# asset-resolver [![Build Status](https://travis-ci.org/bezoerb/asset-resolver.svg?branch=master)](https://travis-ci.org/bezoerb/asset-resolver)
+# asset-resolver [![Build Status](https://travis-ci.org/bezoerb/asset-resolver.svg?branch=master)](https://travis-ci.org/bezoerb/asset-resolver) [![Coverage Status](https://coveralls.io/repos/github/bezoerb/asset-resolver/badge.svg?branch=master)](https://coveralls.io/github/bezoerb/asset-resolver?branch=master)
 
 > Helper module to find an asset in a set of locations
 
