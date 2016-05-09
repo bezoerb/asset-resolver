@@ -41,9 +41,9 @@ The filename
 Type: `string`,`array` 
 Default: `[process.cwd()]` 
 Required: `false`
-Example: `['http://domain.de/', 'http://domain.de/styles', 'app/images']` 
+Example: `['http://domain.de/', 'http://domain.de/styles', 'app/images', '**/images/']` 
 
-List of directories/urls where we should start looking for assets. 
+List of directories/urls where we should start looking for assets (supports globbing on directories). 
 
 ##### filter
 

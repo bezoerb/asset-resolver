@@ -1,12 +1,12 @@
 'use strict';
+var fs = require('fs');
+var http = require('http');
+var path = require('path');
 var expect = require('chai').expect;
 var finalhandler = require('finalhandler');
-var http = require('http');
 var serveStatic = require('serve-static');
-var resolver = require('../');
-var fs = require('fs');
 var Promise = require('es6-promise').Promise;
-var path = require('path');
+var resolver = require('../');
 
 function read(file) {
 	return fs.readFileSync(path.join(__dirname, 'fixtures', file));
@@ -58,6 +58,14 @@ describe('asset-resolver', function () {
 	it('should find the file by file', function (done) {
 		check('check.svg', ['//localhost:3000/test/', path.join(__dirname, 'fixtures')], function (resource) {
 			expect(resource.path).to.eql(path.join(__dirname, 'fixtures', 'check.svg'));
+			expect(resource.mime).to.eql('image/svg+xml');
+			done();
+		});
+	});
+
+	it('should find the file by glob', function (done) {
+		check('check.svg', ['test/*/'], function (resource) {
+			expect(resource.path).to.eql(path.join('test', 'fixtures', 'check.svg'));
 			expect(resource.mime).to.eql('image/svg+xml');
 			done();
 		});
