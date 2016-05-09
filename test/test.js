@@ -26,14 +26,16 @@ function startServer(docroot) {
 function check(file, base, filter, done) {
 	if (!done && filter) {
 		done = filter;
-		filter = function () {
-			return true;
-		};
+		filter = undefined;
+	}
+	var opts = {base: base};
+	if (filter) {
+		opts.filter = filter;
 	}
 	var contents = read(file);
 	resolver.getResource(file, {base: base, filter: filter}).then(function (resource) {
 		expect(resource.contents).to.eql(contents);
-		done(resource);
+		done(null, resource);
 	}).catch(done);
 }
 
@@ -47,8 +49,18 @@ describe('asset-resolver', function () {
 		server.close(done);
 	});
 
+	it('should fail on wrong url', function (done) {
+		check('blank.gif', ['//localhost/', 'fixtures'], function (err) {
+			expect(err).to.be.an.instanceof(Error);
+			expect(err.message).to.have.string('blank.gif');
+			expect(err.message).to.have.string('Wrong status code 404');
+			done();
+		});
+	});
+
 	it('should find the file by url', function (done) {
-		check('blank.gif', ['//localhost:3000/', 'fixtures'], function (resource) {
+		check('blank.gif', ['//localhost:3000/', 'fixtures'], function (err, resource) {
+			expect(err).to.eql(null);
 			expect(resource.path).to.eql('http://localhost:3000/blank.gif');
 			expect(resource.mime).to.eql('image/gif');
 			done();
@@ -56,7 +68,8 @@ describe('asset-resolver', function () {
 	});
 
 	it('should find the file by file', function (done) {
-		check('check.svg', ['//localhost:3000/test/', path.join(__dirname, 'fixtures')], function (resource) {
+		check('check.svg', ['//localhost:3000/test/', path.join(__dirname, 'fixtures')], function (err, resource) {
+			expect(err).to.eql(null);
 			expect(resource.path).to.eql(path.join(__dirname, 'fixtures', 'check.svg'));
 			expect(resource.mime).to.eql('image/svg+xml');
 			done();
@@ -64,7 +77,8 @@ describe('asset-resolver', function () {
 	});
 
 	it('should find the file by glob', function (done) {
-		check('check.svg', ['test/*/'], function (resource) {
+		check('check.svg', 'test/*/', function (err, resource) {
+			expect(err).to.eql(null);
 			expect(resource.path).to.eql(path.join('test', 'fixtures', 'check.svg'));
 			expect(resource.mime).to.eql('image/svg+xml');
 			done();
