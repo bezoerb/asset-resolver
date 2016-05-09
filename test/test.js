@@ -53,7 +53,6 @@ describe('asset-resolver', function () {
 		check('blank.gif', ['//localhost/', 'fixtures'], function (err) {
 			expect(err).to.be.an.instanceof(Error);
 			expect(err.message).to.have.string('blank.gif');
-			expect(err.message).to.have.string('Wrong status code 404');
 			done();
 		});
 	});
