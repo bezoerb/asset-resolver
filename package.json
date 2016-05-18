@@ -41,7 +41,7 @@
   "devDependencies": {
     "chai": "3.5.0",
     "coveralls": "^2.11.9",
-    "es6-promise": "3.1.2",
+    "es6-promise": "3.2.1",
     "finalhandler": "0.4.1",
     "mocha": "^2.3.4",
     "nyc": "^6.4.4",
