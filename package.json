@@ -30,7 +30,7 @@
     "bluebird": "3.4.0",
     "debug": "2.2.0",
     "filesize": "3.3.0",
-    "globby": "^4.0.0",
+    "globby": "^5.0.0",
     "hash": "0.2.0",
     "lodash": "4.13.1",
     "meow": "3.7.0",
