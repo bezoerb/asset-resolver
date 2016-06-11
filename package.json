@@ -45,7 +45,7 @@
     "finalhandler": "0.4.1",
     "mocha": "^2.3.4",
     "nyc": "^6.4.4",
-    "serve-static": "1.10.2",
+    "serve-static": "1.10.3",
     "xo": "0.15.1"
   },
   "xo": {
