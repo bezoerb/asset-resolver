@@ -1,118 +1,87 @@
-'use strict';
-var fs = require('fs');
-var http = require('http');
-var path = require('path');
-var expect = require('chai').expect;
-var finalhandler = require('finalhandler');
-var serveStatic = require('serve-static');
-var Promise = require('es6-promise').Promise;
-var resolver = require('../');
+import fs from 'fs';
+import http from 'http';
+import path from 'path';
+import finalhandler from 'finalhandler';
+import serveStatic from 'serve-static';
+import Promise from 'bluebird';
+import getPort from 'get-port';
+import test from 'ava';
+import resolver from '../';
 
-function read(file) {
-	return fs.readFileSync(path.join(__dirname, 'fixtures', file));
-}
+const readFile = Promise.promisify(fs.readFile);
 
-function startServer(docroot) {
-	var serve = serveStatic(docroot);
-	var server = http.createServer(function (req, res) {
-		var done = finalhandler(req, res);
-		serve(req, res, done);
-	});
-	server.listen(3000);
+// start fresh server before tests
+test.beforeEach(async t => {
+	const base = path.join(__dirname, 'fixtures');
+	const serve = serveStatic(base);
+	const port = await getPort();
+	const server = http.createServer((req, res) => serve(req, res, finalhandler(req, res)));
 
-	return server;
-}
+	server.listen(port);
 
-function check(file, base, filter, done) {
-	if (!done && filter) {
-		done = filter;
-		filter = undefined;
-	}
-	var opts = {base: base};
-	if (filter) {
-		opts.filter = filter;
-	}
-	var contents = read(file);
-	resolver.getResource(file, {base: base, filter: filter}).then(function (resource) {
-		expect(resource.contents).to.eql(contents);
-		done(null, resource);
-	}).catch(done);
-}
+	t.context.port = port;
+	t.context.server = server;
+});
 
-describe('asset-resolver', function () {
-	var server;
+// stop server in any case
+test.afterEach.cb.always(t => {
+	t.context.server.close(t.end);
+});
 
-	beforeEach(function () {
-		server = startServer(path.join(__dirname, 'fixtures'));
-	});
-	afterEach(function (done) {
-		server.close(done);
-	});
+test('should fail on wrong url', async t => {
+	const res = resolver.getResource('blank.gif', {base: ['//localhost/']});
+	t.throws(res, Error, /.*blank\.gif.*/);
+});
 
-	it('should fail on wrong url', function (done) {
-		check('blank.gif', ['//localhost/', 'fixtures'], function (err) {
-			expect(err).to.be.an.instanceof(Error);
-			expect(err.message).to.have.string('blank.gif');
-			done();
+test('should find the file by url', async t => {
+	const expected = await readFile('fixtures/blank.gif');
+	const res = await resolver.getResource('blank.gif', {base: ['//localhost:' + t.context.port + '/', 'fixture']});
+
+	t.is(res.contents.toString(), expected.toString());
+	t.is(res.path, 'http://localhost:' + t.context.port + '/blank.gif');
+	t.is(res.mime, 'image/gif');
+});
+
+test('should find the file by file', async t => {
+	const expected = await readFile('fixtures/check.svg');
+	const res = await resolver.getResource('check.svg', {base: ['//localhost:' + t.context.port + '/test/', 'fixtures']});
+
+	t.is(res.contents.toString(), expected.toString());
+	t.is(res.path, 'fixtures/check.svg');
+	t.is(res.mime, 'image/svg+xml');
+});
+
+test('should find the file by glob', async t => {
+	const expected = await readFile('fixtures/check.svg');
+	const res = await resolver.getResource('check.svg', {base: ['./*/']});
+
+	t.is(res.contents.toString(), expected.toString());
+	t.is(res.path, 'fixtures/check.svg');
+	t.is(res.mime, 'image/svg+xml');
+});
+
+test('should use consider sync filter', async t => {
+	const base = ['//localhost:' + t.context.port + '/'];
+	const filter = resource => {
+		return resource.path !== 'http://localhost:' + t.context.port + '/blank.gif' || resource.mime !== 'image/gif';
+	};
+
+	const res = resolver.getResource('blank.gif', {base, filter});
+
+	t.throws(res, Error, /blank\.gif.*could not be resolved.*rejected by filter/);
+});
+
+test('should use consider async filter returning a promise', async t => {
+	const base = ['//localhost/', path.join(__dirname, 'fixtures')];
+	const filter = () => {
+		return new Promise(function (resolve, reject) {
+			setTimeout(function () {
+				reject(new Error('FINE'));
+			}, 1000);
 		});
-	});
+	};
 
-	it('should find the file by url', function (done) {
-		check('blank.gif', ['//localhost:3000/', 'fixtures'], function (err, resource) {
-			expect(err).to.eql(null);
-			expect(resource.path).to.eql('http://localhost:3000/blank.gif');
-			expect(resource.mime).to.eql('image/gif');
-			done();
-		});
-	});
+	const res = resolver.getResource('check.svg', {base, filter});
 
-	it('should find the file by file', function (done) {
-		check('check.svg', ['//localhost:3000/test/', path.join(__dirname, 'fixtures')], function (err, resource) {
-			expect(err).to.eql(null);
-			expect(resource.path).to.eql(path.join(__dirname, 'fixtures', 'check.svg'));
-			expect(resource.mime).to.eql('image/svg+xml');
-			done();
-		});
-	});
-
-	it('should find the file by glob', function (done) {
-		check('check.svg', 'test/*/', function (err, resource) {
-			expect(err).to.eql(null);
-			expect(resource.path).to.eql(path.join('test', 'fixtures', 'check.svg'));
-			expect(resource.mime).to.eql('image/svg+xml');
-			done();
-		});
-	});
-
-	it('should use consider sync filter', function (done) {
-		check('blank.gif', ['//localhost:3000/', 'fixtures'], function (resource) {
-			expect(resource.path).to.eql('http://localhost:3000/blank.gif');
-			expect(resource.mime).to.eql('image/gif');
-			return resource.path !== 'http://localhost:3000/blank.gif';
-		}, function (err) {
-			expect(err).to.be.an.instanceof(Error);
-			expect(err.message).to.have.string('blank.gif');
-			expect(err.message).to.have.string('could not be resolved');
-			expect(err.message).to.have.string('rejected by filter');
-			done();
-		});
-	});
-
-	it('should use consider async filter returning a promise', function (done) {
-		check('check.svg', ['//localhost:3000/test/', path.join(__dirname, 'fixtures')], function (resource) {
-			return new Promise(function (resolve, reject) {
-				setTimeout(function () {
-					expect(resource.path).to.eql(path.join(__dirname, 'fixtures', 'check.svg'));
-					expect(resource.mime).to.eql('image/svg+xml');
-					reject(new Error('FINE'));
-				}, 1000);
-			});
-		}, function (err) {
-			expect(err).to.be.an.instanceof(Error);
-			expect(err.message).to.have.string('check.svg');
-			expect(err.message).to.have.string('could not be resolved');
-			expect(err.message).to.have.string('FINE');
-			done();
-		});
-	});
+	t.throws(res, Error, /check\.svg.*could not be resolved.*FINE/);
 });
