@@ -27,7 +27,7 @@
     "resolve"
   ],
   "dependencies": {
-    "bluebird": "3.4.1",
+    "bluebird": "3.4.4",
     "debug": "2.2.0",
     "filesize": "3.3.0",
     "globby": "^5.0.0",
