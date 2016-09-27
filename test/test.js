@@ -47,7 +47,7 @@ test('should find the file by file', async t => {
 	const res = await resolver.getResource('check.svg', {base: ['//localhost:' + t.context.port + '/test/', 'fixtures']});
 
 	t.is(res.contents.toString(), expected.toString());
-	t.is(res.path, path.join('fixtures','check.svg'));
+	t.is(res.path, path.join('fixtures', 'check.svg'));
 	t.is(res.mime, 'image/svg+xml');
 });
 
@@ -56,7 +56,7 @@ test('should find the file by glob', async t => {
 	const res = await resolver.getResource('check.svg', {base: ['./*/']});
 
 	t.is(res.contents.toString(), expected.toString());
-	t.is(res.path, path.join('fixtures','check.svg'));
+	t.is(res.path, path.join('fixtures', 'check.svg'));
 	t.is(res.mime, 'image/svg+xml');
 });
 
