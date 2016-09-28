@@ -1,4 +1,5 @@
-# asset-resolver [![Build Status](https://travis-ci.org/bezoerb/asset-resolver.svg?branch=master)](https://travis-ci.org/bezoerb/asset-resolver) [![Coverage Status](https://coveralls.io/repos/github/bezoerb/asset-resolver/badge.svg?branch=master)](https://coveralls.io/github/bezoerb/asset-resolver?branch=master)
+# asset-resolver [![NPM version][npm-image]][npm-url] [![Linux Build Status][travis-image]][travis-url] [![Windows Build status][appveyor-image]][appveyor-url] [![Coverage Status][coveralls-image]][coveralls-url] [![dependencies Status][depstat-image]][depstat-url] [![devDependencies Status Status][deVdepstat-image]][deVdepstat-url]
+
 
 > Helper module to find an asset in a set of locations
 
@@ -91,4 +92,23 @@ $ asset-resolver --help
 
 ## License
 
-MIT © [Ben Zörb](http://sommerlaune.com)
+MIT © [Ben Zörb](http://sommerlaune.com)     
+
+                                              
+[npm-url]: https://www.npmjs.com/package/asset-resolver
+[npm-image]: https://img.shields.io/npm/v/asset-resolver.svg
+
+[travis-url]: https://travis-ci.org/bezoerb/asset-resolver
+[travis-image]: https://travis-ci.org/bezoerb/asset-resolver.svg?branch=master&label=Linux%20build
+
+[appveyor-url]: https://ci.appveyor.com/project/bezoerb/asset-resolver/branch/master
+[appveyor-image]: https://ci.appveyor.com/api/projects/status/yr4kfmv5vcbb03yn/branch/master?svg=true&label=Windows%20build
+
+[depstat-url]: https://david-dm.org/bezoerb/asset-resolver
+[depstat-image]: https://img.shields.io/david/bezoerb/asset-resolver.svg
+
+[deVdepstat-url]: https://david-dm.org/bezoerb/asset-resolver?type=dev
+[deVdepstat-image]: https://img.shields.io/david/dev/bezoerb/asset-resolver.svg
+                                              
+[coveralls-url]: https://coveralls.io/github/bezoerb/asset-resolver?branch=master
+[coveralls-image]: https://coveralls.io/repos/github/bezoerb/asset-resolver/badge.svg?branch=master
