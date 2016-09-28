@@ -1,4 +1,12 @@
 
+v0.3.0 / 2016-09-28
+==================
+
+  * Add windows tests
+  * Switch from mocha to ava
+  * Minimum node.js version is 4.0 now due to upstream changes.
+  * Bump deps
+
 v0.2.0 / 2016-05-09
 ===================
 
