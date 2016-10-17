@@ -6,7 +6,7 @@ var toarray = require('lodash/toArray');
 var defaults = require('lodash/defaults');
 var map = require('lodash/map');
 var debug = require('debug')('asset-resolver');
-var Promise = require('bluebird');
+var Bluebird = require('bluebird');
 var resolver = require('./lib/resolver');
 
 module.exports.getResource = function (file, opts) {
@@ -23,11 +23,11 @@ module.exports.getResource = function (file, opts) {
 
 	opts.base = resolver.glob(toarray(opts.base));
 
-	return Promise.any(map(opts.base, function (base) {
+	return Bluebird.any(map(opts.base, function (base) {
 		return resolver.getResource(base, file, opts);
-	})).catch(Promise.AggregateError, function (errs) {
+	})).catch(Bluebird.AggregateError, function (errs) {
 		var msg = ['The file "' + file + '" could not be resolved because of:'].concat(map(errs, 'message'));
 		debug(msg);
-		return Promise.reject(new Error(msg.join(os.EOL)));
+		return Bluebird.reject(new Error(msg.join(os.EOL)));
 	});
 };

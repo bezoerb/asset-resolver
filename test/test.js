@@ -3,12 +3,12 @@ import http from 'http';
 import path from 'path';
 import finalhandler from 'finalhandler';
 import serveStatic from 'serve-static';
-import Promise from 'bluebird';
+import {Promise as Bluebird} from 'bluebird';
 import getPort from 'get-port';
 import test from 'ava';
 import resolver from '../';
 
-const readFile = Promise.promisify(fs.readFile);
+const readFile = Bluebird.promisify(fs.readFile);
 
 // start fresh server before tests
 test.beforeEach(async t => {
@@ -74,7 +74,7 @@ test('should use consider sync filter', async t => {
 test('should use consider async filter returning a promise', async t => {
 	const base = ['//localhost/', path.join(__dirname, 'fixtures')];
 	const filter = () => {
-		return new Promise(function (resolve, reject) {
+		return new Bluebird(function (resolve, reject) {
 			setTimeout(function () {
 				reject(new Error('FINE'));
 			}, 1000);
