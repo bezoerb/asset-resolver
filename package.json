@@ -28,7 +28,7 @@
   ],
   "dependencies": {
     "bluebird": "3.4.6",
-    "debug": "2.2.0",
+    "debug": "2.3.1",
     "filesize": "3.3.0",
     "globby": "6.0.0",
     "hash": "0.2.0",
