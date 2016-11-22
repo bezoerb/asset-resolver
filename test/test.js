@@ -34,7 +34,7 @@ test('should fail on wrong url', async t => {
 });
 
 test('should find the file by url', async t => {
-	const expected = await readFile('fixtures/blank.gif');
+	const expected = await readFile(path.join(__dirname, 'fixtures/blank.gif'));
 	const res = await resolver.getResource('blank.gif', {base: ['//localhost:' + t.context.port + '/', 'fixture']});
 
 	t.is(res.contents.toString(), expected.toString());
@@ -43,20 +43,20 @@ test('should find the file by url', async t => {
 });
 
 test('should find the file by file', async t => {
-	const expected = await readFile('fixtures/check.svg');
-	const res = await resolver.getResource('check.svg', {base: ['//localhost:' + t.context.port + '/test/', 'fixtures']});
+	const expected = await readFile(path.join(__dirname, 'fixtures/check.svg'));
+	const res = await resolver.getResource('check.svg', {base: ['//localhost:' + t.context.port + '/test/', 'test/fixtures']});
 
 	t.is(res.contents.toString(), expected.toString());
-	t.is(res.path, path.join('fixtures', 'check.svg'));
+	t.is(res.path, path.join('test', 'fixtures', 'check.svg'));
 	t.is(res.mime, 'image/svg+xml');
 });
 
 test('should find the file by glob', async t => {
-	const expected = await readFile('fixtures/check.svg');
-	const res = await resolver.getResource('check.svg', {base: ['./*/']});
+	const expected = await readFile(path.join(__dirname, 'fixtures/check.svg'));
+	const res = await resolver.getResource('check.svg', {base: [path.join(__dirname, '/*/')]});
 
 	t.is(res.contents.toString(), expected.toString());
-	t.is(res.path, path.join('fixtures', 'check.svg'));
+	t.is(res.path, path.join(__dirname, 'fixtures', 'check.svg'));
 	t.is(res.mime, 'image/svg+xml');
 });
 
