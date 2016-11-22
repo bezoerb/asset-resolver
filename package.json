@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "ava": "0.16.0",
-    "coveralls": "2.11.9",
+    "coveralls": "2.11.15",
     "es6-promise": "4.0.5",
     "finalhandler": "0.5.1",
     "get-port": "2.1.0",
