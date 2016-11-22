@@ -1,6 +1,6 @@
 {
   "name": "asset-resolver",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Find an asset in a set of locations",
   "license": "MIT",
   "repository": "bezoerb/asset-resolver",
