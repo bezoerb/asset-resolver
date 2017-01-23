@@ -45,7 +45,7 @@
     "finalhandler": "0.5.1",
     "get-port": "2.1.0",
     "nyc": "10.0.0",
-    "serve-static": "1.11.1",
+    "serve-static": "1.11.2",
     "xo": "0.17.1"
   },
   "xo": {
