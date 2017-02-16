@@ -42,7 +42,7 @@
     "ava": "0.17.0",
     "coveralls": "2.11.15",
     "es6-promise": "4.0.5",
-    "finalhandler": "0.5.1",
+    "finalhandler": "1.0.0",
     "get-port": "2.1.0",
     "nyc": "10.1.2",
     "serve-static": "1.11.2",
