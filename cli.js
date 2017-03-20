@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 'use strict';
-var meow = require('meow');
-var resolver = require('./');
+const meow = require('meow');
+const resolver = require('./');
 
-var cli = meow({
+const cli = meow({
 	help: [
 		'Usage',
 		'asset-resolver [input]',
@@ -20,8 +20,8 @@ var cli = meow({
 	]
 }, {alias: {b: 'base'}});
 
-resolver.getResource(cli.input[0], cli.flags).then(function (resource) {
+resolver.getResource(cli.input[0], cli.flags).then(resource => {
 	console.log(resource.contents);
-}).catch(function (err) {
+}).catch(err => {
 	console.error(err.message || err);
 });

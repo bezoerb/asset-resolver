@@ -10,7 +10,7 @@ import resolver from '../';
 
 const readFile = Bluebird.promisify(fs.readFile);
 
-// start fresh server before tests
+// Start fresh server before tests
 test.beforeEach(async t => {
 	const base = path.join(__dirname, 'fixtures');
 	const serve = serveStatic(base);
@@ -23,12 +23,12 @@ test.beforeEach(async t => {
 	t.context.server = server;
 });
 
-// stop server in any case
+// Stop server in any case
 test.afterEach.cb.always(t => {
 	t.context.server.close(t.end);
 });
 
-test('should fail on wrong url', async t => {
+test('should fail on wrong url', t => {
 	const res = resolver.getResource('blank.gif', {base: ['//localhost/']});
 	t.throws(res, Error, /.*blank\.gif.*/);
 });
@@ -60,7 +60,7 @@ test('should find the file by glob', async t => {
 	t.is(res.mime, 'image/svg+xml');
 });
 
-test('should use consider sync filter', async t => {
+test('should use consider sync filter', t => {
 	const base = ['//localhost:' + t.context.port + '/'];
 	const filter = resource => {
 		return resource.path !== 'http://localhost:' + t.context.port + '/blank.gif' || resource.mime !== 'image/gif';
@@ -71,11 +71,11 @@ test('should use consider sync filter', async t => {
 	t.throws(res, Error, /blank\.gif.*could not be resolved.*rejected by filter/);
 });
 
-test('should use consider async filter returning a promise', async t => {
+test('should use consider async filter returning a promise', t => {
 	const base = ['//localhost/', path.join(__dirname, 'fixtures')];
 	const filter = () => {
-		return new Bluebird(function (resolve, reject) {
-			setTimeout(function () {
+		return new Bluebird((resolve, reject) => {
+			setTimeout(() => {
 				reject(new Error('FINE'));
 			}, 1000);
 		});
