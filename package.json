@@ -29,7 +29,7 @@
   "dependencies": {
     "bluebird": "3.5.0",
     "debug": "2.6.4",
-    "filesize": "3.5.6",
+    "filesize": "3.5.9",
     "globby": "6.1.0",
     "hash": "0.2.0",
     "lodash": "4.17.4",
