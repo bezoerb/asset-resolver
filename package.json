@@ -11,7 +11,7 @@
   },
   "bin": "cli.js",
   "engines": {
-    "node": ">= 4"
+    "node": ">= 6"
   },
   "scripts": {
     "test": "xo && nyc ava",
@@ -30,7 +30,8 @@
     "bluebird": "^3.5.1",
     "debug": "3.1.0",
     "filesize": "^3.5.11",
-    "globby": "6.1.0",
+    "fs-extra": "^5.0.0",
+    "globby": "^7.1.1",
     "hash": "0.2.0",
     "lodash": "4.17.4",
     "meow": "3.7.0",
