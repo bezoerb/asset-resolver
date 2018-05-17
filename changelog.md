@@ -1,10 +1,17 @@
 
-1.0.1 / 2018-03-14
+v1.0.2 / 2018-05-17
+==================
+
+  * updated yarn.lock
+  * Chore: update fs-extra to 6.0.1 (#213)
+  * Add basic auth option
+
+v1.0.1 / 2018-03-14
 ==================
 
   * Don't break on file permission error
 
-1.0.0 / 2017-12-17
+v1.0.0 / 2017-12-17
 ==================
 
   * Drop support for node < 6
