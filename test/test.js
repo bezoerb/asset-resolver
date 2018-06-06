@@ -6,7 +6,7 @@ import serveStatic from 'serve-static';
 import {Promise as Bluebird} from 'bluebird';
 import getPort from 'get-port';
 import test from 'ava';
-import resolver from '../';
+import resolver from '..';
 
 const readFile = Bluebird.promisify(fs.readFile);
 

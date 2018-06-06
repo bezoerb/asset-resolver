@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 const meow = require('meow');
-const resolver = require('./');
+const resolver = require('.');
 
 const cli = meow({
 	help: [

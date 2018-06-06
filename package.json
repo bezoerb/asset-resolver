@@ -31,24 +31,24 @@
     "debug": "3.1.0",
     "filesize": "^3.5.11",
     "fs-extra": "^6.0.1",
-    "globby": "^7.1.1",
+    "globby": "8.0.1",
     "got": "^8.3.1",
     "hash": "0.2.0",
-    "lodash": "4.17.4",
-    "meow": "3.7.0",
-    "mime": "2.0.3",
+    "lodash": "4.17.10",
+    "meow": "5.0.0",
+    "mime": "2.3.1",
     "object": "0.1.1",
-    "request": "^2.83.0"
+    "request": "2.87.0"
   },
   "devDependencies": {
-    "ava": "^0.24.0",
+    "ava": "0.25.0",
     "coveralls": "^3.0.0",
     "es6-promise": "^4.1.1",
     "finalhandler": "^1.1.0",
     "get-port": "^3.2.0",
-    "nyc": "^11.3.0",
+    "nyc": "12.0.2",
     "serve-static": "^1.13.1",
-    "xo": "0.19.0"
+    "xo": "0.21.1"
   },
   "xo": {
     "envs": [

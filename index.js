@@ -21,7 +21,7 @@ module.exports.getResource = function (file, opts) {
 
 	opts.base = resolver.glob(toarray(opts.base));
 
-	return Bluebird.any(map(opts.base, base => {
+	return Bluebird.any(map(opts.base, base => { // eslint-disable-line promise/valid-params
 		return resolver.getResource(base, file, opts);
 	})).catch(Bluebird.AggregateError, errs => {
 		const msg = ['The file "' + file + '" could not be resolved because of:'].concat(map(errs, 'message'));
