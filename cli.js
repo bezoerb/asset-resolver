@@ -28,6 +28,6 @@ resolver
   .then(resource => {
     console.log(resource.contents);
   })
-  .catch(err => {
-    console.error(err.message || err);
+  .catch(error => {
+    console.error(error.message || error);
   });

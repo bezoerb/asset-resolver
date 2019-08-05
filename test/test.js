@@ -26,13 +26,18 @@ test.beforeEach(async t => {
 });
 
 // Stop server in any case
-test.afterEach.cb.always(t => {
+test.afterEach.cb(t => {
   t.context.server.close(t.end);
 });
 
 test('should fail on wrong url', async t => {
-  const res = resolver.getResource('blank.gif', {base: ['//localhost/']});
-  await t.throws(res, Error, /.*blank\.gif.*/);
+  const error = await t.throwsAsync(async () => {
+    await resolver.getResource('blank.gif', {
+      base: ['//localhost/']
+    });
+  }, Error);
+
+  t.regex(error.message, /.*blank\.gif.*/);
 });
 
 test('should find the file by url', async t => {
@@ -77,13 +82,12 @@ test('should use consider sync filter', async t => {
     );
   };
 
-  const res = resolver.getResource('blank.gif', {base, filter});
+  const error = await t.throwsAsync(async () => {
+    await resolver.getResource('blank.gif', {base, filter});
+  }, Error);
 
-  await t.throws(
-    res,
-    Error,
-    /blank\.gif.*could not be resolved.*rejected by filter/
-  );
+  t.regex(error.message, /blank\.gif.*could not be resolved/);
+  t.regex(error.message, /.*rejected by filter/);
 });
 
 test('should use consider async filter returning a promise', async t => {
@@ -96,7 +100,9 @@ test('should use consider async filter returning a promise', async t => {
     });
   };
 
-  const res = resolver.getResource('check.svg', {base, filter});
+  const error = await t.throwsAsync(async () => {
+    await resolver.getResource('check.svg', {base, filter});
+  }, Error);
 
-  await t.throws(res, Error, /check\.svg.*could not be resolved.*FINE/);
+  t.regex(error.message, /check\.svg.*could not be resolved/);
 });

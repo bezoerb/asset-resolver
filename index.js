@@ -23,7 +23,6 @@ module.exports.getResource = function(file, opts) {
 
   return Bluebird.any(
     map(opts.base, base => {
-      // eslint-disable-line promise/valid-params
       return resolver.getResource(base, file, opts);
     })
   ).catch(Bluebird.AggregateError, errs => {
