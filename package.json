@@ -27,27 +27,27 @@
     "resolve"
   ],
   "dependencies": {
-    "bluebird": "^3.5.3",
+    "bluebird": "^3.5.5",
     "debug": "^4.1.1",
-    "filesize": "^4.0.0",
-    "fs-extra": "^7.0.1",
-    "globby": "^9.0.0",
+    "filesize": "^4.1.2",
+    "fs-extra": "^8.1.0",
+    "globby": "^9.2.0",
     "got": "^9.6.0",
     "hash": "^0.2.1",
     "lodash": "^4.17.15",
     "meow": "5.0.0",
-    "mime": "^2.4.0",
+    "mime": "^2.4.4",
     "object": "0.1.1",
     "request": "^2.88.0"
   },
   "devDependencies": {
     "ava": "^2.2.0",
-    "coveralls": "^3.0.2",
-    "es6-promise": "^4.2.5",
-    "finalhandler": "^1.1.1",
-    "get-port": "^3.2.0",
+    "coveralls": "^3.0.6",
+    "es6-promise": "^4.2.8",
+    "finalhandler": "^1.1.2",
+    "get-port": "^5.0.0",
     "nyc": "^14.1.1",
-    "serve-static": "^1.13.2",
+    "serve-static": "^1.14.1",
     "xo": "^0.24.0"
   },
   "xo": {
