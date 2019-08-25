@@ -1,4 +1,5 @@
 'use strict';
+
 const os = require('os');
 const toarray = require('lodash/toArray');
 const defaults = require('lodash/defaults');
