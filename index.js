@@ -1,7 +1,6 @@
 'use strict';
 
 const os = require('os');
-const toarray = require('lodash/toArray');
 const defaults = require('lodash/defaults');
 const map = require('lodash/map');
 const debug = require('debug')('asset-resolver');
@@ -20,7 +19,7 @@ module.exports.getResource = function(file, opts) {
     opts.base = [opts.base];
   }
 
-  opts.base = resolver.glob(toarray(opts.base));
+  opts.base = resolver.glob([...opts.base]);
 
   return Bluebird.any(
     map(opts.base, base => {
