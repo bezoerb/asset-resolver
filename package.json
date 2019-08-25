@@ -14,7 +14,9 @@
     "node": ">= 8.6"
   },
   "scripts": {
-    "test": "xo && nyc ava",
+    "ava": "nyc ava",
+    "xo": "xo",
+    "test": "npm run xo && npm run ava",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "files": [
