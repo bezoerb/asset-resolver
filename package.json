@@ -41,7 +41,7 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "ava": "^2.2.0",
+    "ava": "^2.3.0",
     "coveralls": "^3.0.6",
     "es6-promise": "^4.2.8",
     "finalhandler": "^1.1.2",
