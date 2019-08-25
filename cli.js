@@ -10,7 +10,7 @@ const cli = meow(
       'asset-resolver [input]',
       '',
       'Options',
-      '  -b --base  List of directories/urls where we should start looking for assets. [Default: process.cwd()]',
+      '  -b --base  List of directories/URLs where we should start looking for assets. [Default: process.cwd()]',
       '',
       'Examples',
       "$ asset-resolver 'my.svg' -b 'some/directory' -b 'http://some.domain/assets'",
