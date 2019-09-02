@@ -1,35 +1,31 @@
-'use strict';
+"use strict";
 
-const os = require('os');
-const defaults = require('lodash/defaults');
-const map = require('lodash/map');
-const debug = require('debug')('asset-resolver');
-const Bluebird = require('bluebird');
-const resolver = require('./lib/resolver');
+const os = require("os");
+const debug = require("debug")("asset-resolver");
+const Bluebird = require("bluebird");
+const resolver = require("./lib/resolver");
 
-module.exports.getResource = function(file, opts) {
-  opts = defaults(opts || {}, {
-    base: [process.cwd()],
-    filter() {
-      return true;
-    }
-  });
+module.exports.getResource = function(file, options = {}) {
+	const opts = {
+		base: [process.cwd()],
+		filter: () => true,
+		...options
+	};
 
-  if (typeof opts.base === 'string') {
-    opts.base = [opts.base];
-  }
+	if (typeof opts.base === "string") {
+		opts.base = [opts.base];
+	}
 
-  opts.base = resolver.glob([...opts.base]);
+	opts.base = resolver.glob([...opts.base]);
 
-  return Bluebird.any(
-    map(opts.base, base => {
-      return resolver.getResource(base, file, opts);
-    })
-  ).catch(Bluebird.AggregateError, errs => {
-    const msg = [
-      'The file "' + file + '" could not be resolved because of:'
-    ].concat(map(errs, 'message'));
-    debug(msg);
-    return Bluebird.reject(new Error(msg.join(os.EOL)));
-  });
+	const promises = (opts.base || []).map(base => {
+		return resolver.getResource(base, file, opts);
+	});
+	return Bluebird.any(promises).catch(Bluebird.AggregateError, errs => {
+		const msg = [
+			'The file "' + file + '" could not be resolved because of:'
+		].concat(errs.map(err => err.message));
+		debug(msg);
+		return Bluebird.reject(new Error(msg.join(os.EOL)));
+	});
 };
