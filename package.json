@@ -16,8 +16,7 @@
   "scripts": {
     "ava": "nyc ava",
     "xo": "xo",
-    "test": "npm run xo && npm run ava",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "test": "npm run xo && npm run ava"
   },
   "files": [
     "index.js",
@@ -43,7 +42,6 @@
   },
   "devDependencies": {
     "ava": "^2.4.0",
-    "coveralls": "^3.0.6",
     "es6-promise": "^4.2.8",
     "finalhandler": "^1.1.2",
     "get-port": "^5.0.0",
@@ -62,5 +60,11 @@
       "promise/prefer-await-to-then": "off",
       "capitalized-comments": "off"
     }
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ]
   }
 }
