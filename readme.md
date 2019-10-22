@@ -1,4 +1,4 @@
-[![NPM version][npm-image]][npm-url] [![Linux Build Status][travis-image]][travis-url] [![Windows Build status][appveyor-image]][appveyor-url] [![Coverage Status][coveralls-image]][coveralls-url] [![dependencies Status][depstat-image]][depstat-url] [![devDependencies Status Status][deVdepstat-image]][deVdepstat-url]
+[![NPM version][npm-image]][npm-url] [![Build Status][ci-image]][ci-url] [![Coverage Status][coveralls-image]][coveralls-url] [![dependencies Status][depstat-image]][depstat-url] [![devDependencies Status Status][deVdepstat-image]][deVdepstat-url]
 
 # asset-resolver
 
@@ -100,11 +100,8 @@ MIT © [Ben Zörb](http://sommerlaune.com)
 [npm-url]: https://www.npmjs.com/package/asset-resolver
 [npm-image]: https://img.shields.io/npm/v/asset-resolver.svg
 
-[travis-url]: https://travis-ci.org/bezoerb/asset-resolver
-[travis-image]: https://img.shields.io/travis/bezoerb/asset-resolver/master.svg?label=Linux%20build
-
-[appveyor-url]: https://ci.appveyor.com/project/bezoerb/asset-resolver/branch/master
-[appveyor-image]: https://img.shields.io/appveyor/ci/bezoerb/asset-resolver/master.svg?label=Windows%20build
+[ci-url]: https://github.com/bezoerb/asset-resolver/actions?workflow=Tests
+[ci-image]: https://github.com/bezoerb/asset-resolver/workflows/Tests/badge.svg
 
 [depstat-url]: https://david-dm.org/bezoerb/asset-resolver
 [depstat-image]: https://img.shields.io/david/bezoerb/asset-resolver.svg
@@ -113,4 +110,4 @@ MIT © [Ben Zörb](http://sommerlaune.com)
 [deVdepstat-image]: https://img.shields.io/david/dev/bezoerb/asset-resolver.svg
 
 [coveralls-url]: https://coveralls.io/github/bezoerb/asset-resolver?branch=master
-[coveralls-image]: https://coveralls.io/repos/github/bezoerb/asset-resolver/badge.svg?branch=master
+[coveralls-image]: https://img.shields.io/coveralls/github/bezoerb/asset-resolver/master.svg
