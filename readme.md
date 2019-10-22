@@ -1,4 +1,4 @@
-[![NPM version][npm-image]][npm-url] [![Build Status][ci-image]][ci-url] [![Coverage Status][coveralls-image]][coveralls-url] [![dependencies Status][depstat-image]][depstat-url] [![devDependencies Status Status][deVdepstat-image]][deVdepstat-url]
+[![NPM version][npm-image]][npm-url] [![Build Status][ci-image]][ci-url] [![Coverage Status][coveralls-image]][coveralls-url] [![dependencies Status][depstat-image]][depstat-url] [![devDependencies Status Status][devdepstat-image]][devdepstat-url]
 
 # asset-resolver
 
@@ -106,8 +106,8 @@ MIT © [Ben Zörb](http://sommerlaune.com)
 [depstat-url]: https://david-dm.org/bezoerb/asset-resolver
 [depstat-image]: https://img.shields.io/david/bezoerb/asset-resolver.svg
 
-[deVdepstat-url]: https://david-dm.org/bezoerb/asset-resolver?type=dev
-[deVdepstat-image]: https://img.shields.io/david/dev/bezoerb/asset-resolver.svg
+[devdepstat-url]: https://david-dm.org/bezoerb/asset-resolver?type=dev
+[devdepstat-image]: https://img.shields.io/david/dev/bezoerb/asset-resolver.svg
 
 [coveralls-url]: https://coveralls.io/github/bezoerb/asset-resolver?branch=master
 [coveralls-image]: https://img.shields.io/coveralls/github/bezoerb/asset-resolver/master.svg
