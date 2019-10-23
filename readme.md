@@ -1,6 +1,6 @@
-[![NPM version][npm-image]][npm-url] [![Linux Build Status][travis-image]][travis-url] [![Windows Build status][appveyor-image]][appveyor-url] [![Coverage Status][coveralls-image]][coveralls-url] [![dependencies Status][depstat-image]][depstat-url] [![devDependencies Status Status][deVdepstat-image]][deVdepstat-url]
+[![NPM version][npm-image]][npm-url] [![Build Status][ci-image]][ci-url] [![Coverage Status][coveralls-image]][coveralls-url] [![dependencies Status][depstat-image]][depstat-url] [![devDependencies Status Status][devdepstat-image]][devdepstat-url]
 
-# asset-resolver 
+# asset-resolver
 
 > Helper module to find an asset in a set of locations
 
@@ -18,9 +18,9 @@ $ npm install --save asset-resolver
 var resolver = require('asset-resolver');
 
 resolver.getResource('my.svg',{
-	base: ['some/directory','http://some.domain/assets']
+  base: ['some/directory','http://some.domain/assets']
 }).then(function(resource) {
-	console.log(resource)
+  console.log(resource)
 });
 //=> { path: http://some.domain/assets/my.svg', mime: 'image/svg+xml', contents: ' ... ' }
 ```
@@ -40,31 +40,32 @@ The filename
 
 ##### base
 
-Type: `string`,`array` 
-Default: `[process.cwd()]` 
-Required: `false`
-Example: `['http://domain.de/', 'http://domain.de/styles', 'app/images', '**/images/']` 
+* Type: `string`,`array`
+* Default: `[process.cwd()]`
+* Required: `false`
+* Example: `['http://domain.de/', 'http://domain.de/styles', 'app/images', '**/images/']`
 
-List of directories/urls where we should start looking for assets (supports globbing on directories). 
+List of directories/urls where we should start looking for assets (supports globbing on directories).
 
 ##### filter
 
-Type: `function` 
-Default: `function(){ return true; }` 
-Required: `false`
-Example: 
-```javascript
-resolver.getResource('my.svg',{
-	base: ['some/directory','http://some.domain/assets'],
-	filter: function (resource) {
-		return filesize(resource) < maxFileSize;
-	}
-}).then(function(resource) {
-	console.log(resource)
-});
-```
+* Type: `function`
+* Default: `function(){ return true; }`
+* Required: `false`
+* Example:
 
-List of directories/urls where we should start looking for assets. 
+  ```javascript
+  resolver.getResource('my.svg',{
+    base: ['some/directory','http://some.domain/assets'],
+    filter: function (resource) {
+      return filesize(resource) < maxFileSize;
+    }
+  }).then(function(resource) {
+    console.log(resource)
+  });
+  ```
+
+List of directories/urls where we should start looking for assets.
 
 
 ## CLI
@@ -93,23 +94,20 @@ $ asset-resolver --help
 
 ## License
 
-MIT © [Ben Zörb](http://sommerlaune.com)     
+MIT © [Ben Zörb](http://sommerlaune.com)
 
-                                              
+
 [npm-url]: https://www.npmjs.com/package/asset-resolver
 [npm-image]: https://img.shields.io/npm/v/asset-resolver.svg
 
-[travis-url]: https://travis-ci.org/bezoerb/asset-resolver
-[travis-image]: https://travis-ci.org/bezoerb/asset-resolver.svg?branch=master&label=Linux%20build
-
-[appveyor-url]: https://ci.appveyor.com/project/bezoerb/asset-resolver/branch/master
-[appveyor-image]: https://ci.appveyor.com/api/projects/status/yr4kfmv5vcbb03yn/branch/master?svg=true&label=Windows%20build
+[ci-url]: https://github.com/bezoerb/asset-resolver/actions?workflow=Tests
+[ci-image]: https://github.com/bezoerb/asset-resolver/workflows/Tests/badge.svg
 
 [depstat-url]: https://david-dm.org/bezoerb/asset-resolver
 [depstat-image]: https://img.shields.io/david/bezoerb/asset-resolver.svg
 
-[deVdepstat-url]: https://david-dm.org/bezoerb/asset-resolver?type=dev
-[deVdepstat-image]: https://img.shields.io/david/dev/bezoerb/asset-resolver.svg
-                                              
-[coveralls-url]: https://coveralls.io/github/bezoerb/asset-resolver?branch=master
-[coveralls-image]: https://coveralls.io/repos/github/bezoerb/asset-resolver/badge.svg?branch=master
+[devdepstat-url]: https://david-dm.org/bezoerb/asset-resolver?type=dev
+[devdepstat-image]: https://img.shields.io/david/dev/bezoerb/asset-resolver.svg
+
+[coveralls-url]: https://coveralls.io/github/bezoerb/asset-resolver?branch=v1.x
+[coveralls-image]: https://img.shields.io/coveralls/github/bezoerb/asset-resolver/v1.x.svg
