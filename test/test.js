@@ -3,6 +3,7 @@
 import fs from 'fs';
 import http from 'http';
 import path from 'path';
+import {promisify} from 'util';
 import finalhandler from 'finalhandler';
 import serveStatic from 'serve-static';
 import {Promise as Bluebird} from 'bluebird';
@@ -10,7 +11,7 @@ import getPort from 'get-port';
 import test from 'ava';
 import resolver from '..';
 
-const readFile = Bluebird.promisify(fs.readFile);
+const readFile = promisify(fs.readFile);
 
 // Start fresh server before tests
 test.beforeEach(async t => {
