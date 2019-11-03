@@ -6,7 +6,6 @@ import path from 'path';
 import {promisify} from 'util';
 import finalhandler from 'finalhandler';
 import serveStatic from 'serve-static';
-import {Promise as Bluebird} from 'bluebird';
 import getPort from 'get-port';
 import test from 'ava';
 import resolver from '..';
@@ -96,7 +95,7 @@ test('should use consider sync filter', async t => {
 test('should use consider async filter returning a promise', async t => {
   const base = ['//localhost/', path.join(__dirname, 'fixtures')];
   const filter = () => {
-    return new Bluebird((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
         reject(new Error('FINE'));
       }, 1000);
