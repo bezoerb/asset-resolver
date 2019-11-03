@@ -2,8 +2,25 @@
 
 const os = require('os');
 const debug = require('debug')('asset-resolver');
-const Bluebird = require('bluebird');
 const resolver = require('./lib/resolver');
+
+function any(promises) {
+  return Promise.all(
+    promises.map(promise =>
+      promise.then(
+        val => {
+          throw val;
+        },
+        reason => reason
+      )
+    )
+  ).then(
+    reasons => {
+      throw reasons;
+    },
+    firstResolved => firstResolved
+  );
+}
 
 module.exports.getResource = function(file, options = {}) {
   const opts = {
@@ -21,11 +38,11 @@ module.exports.getResource = function(file, options = {}) {
   const promises = (opts.base || []).map(base => {
     return resolver.getResource(base, file, opts);
   });
-  return Bluebird.any(promises).catch(Bluebird.AggregateError, errs => {
+  return any(promises).catch(error => {
     const msg = [
       'The file "' + file + '" could not be resolved because of:'
-    ].concat(errs.map(err => err.message));
+    ].concat(error.map(err => err.message));
     debug(msg);
-    return Bluebird.reject(new Error(msg.join(os.EOL)));
+    return Promise.reject(new Error(msg.join(os.EOL)));
   });
 };
