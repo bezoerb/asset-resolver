@@ -30,19 +30,14 @@
   "dependencies": {
     "bluebird": "^3.7.1",
     "debug": "^4.1.1",
-    "filesize": "^5.0.3",
     "fs-extra": "^8.1.0",
     "globby": "^9.2.0",
-    "got": "^9.6.0",
-    "hash": "^0.2.1",
     "meow": "5.0.0",
     "mime": "^2.4.4",
-    "object": "0.1.1",
     "request": "^2.88.0"
   },
   "devDependencies": {
     "ava": "^2.4.0",
-    "es6-promise": "^4.2.8",
     "finalhandler": "^1.1.2",
     "get-port": "^5.0.0",
     "nyc": "^14.1.1",
