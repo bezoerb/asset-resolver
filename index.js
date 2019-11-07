@@ -22,7 +22,7 @@ function any(promises) {
   );
 }
 
-module.exports.getResource = function(file, options = {}) {
+module.exports.getResource = (file, options = {}) => {
   const opts = {
     base: [process.cwd()],
     filter: () => true,
@@ -39,9 +39,9 @@ module.exports.getResource = function(file, options = {}) {
     return resolver.getResource(base, file, opts);
   });
   return any(promises).catch(error => {
-    const msg = [
-      'The file "' + file + '" could not be resolved because of:'
-    ].concat(error.map(err => err.message));
+    const msg = [`The file "${file}" could not be resolved because of:`].concat(
+      error.map(err => err.message)
+    );
     debug(msg);
     return Promise.reject(new Error(msg.join(os.EOL)));
   });

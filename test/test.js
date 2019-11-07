@@ -45,18 +45,18 @@ test('should fail on wrong url', async t => {
 test('should find the file by url', async t => {
   const expected = await readFile(path.join(__dirname, 'fixtures/blank.gif'));
   const res = await resolver.getResource('blank.gif', {
-    base: ['//localhost:' + t.context.port + '/', 'fixture']
+    base: [`//localhost:${t.context.port}/`, 'fixture']
   });
 
   t.is(res.contents.toString(), expected.toString());
-  t.is(res.path, 'http://localhost:' + t.context.port + '/blank.gif');
+  t.is(res.path, `http://localhost:${t.context.port}/blank.gif`);
   t.is(res.mime, 'image/gif');
 });
 
 test('should find the file by file', async t => {
   const expected = await readFile(path.join(__dirname, 'fixtures/check.svg'));
   const res = await resolver.getResource('check.svg', {
-    base: ['//localhost:' + t.context.port + '/test/', 'test/fixtures']
+    base: [`//localhost:${t.context.port}/test/`, 'test/fixtures']
   });
 
   t.is(res.contents.toString(), expected.toString());
@@ -76,10 +76,10 @@ test('should find the file by glob', async t => {
 });
 
 test('should use consider sync filter', async t => {
-  const base = ['//localhost:' + t.context.port + '/'];
+  const base = [`//localhost:${t.context.port}/`];
   const filter = resource => {
     return (
-      resource.path !== 'http://localhost:' + t.context.port + '/blank.gif' ||
+      resource.path !== `http://localhost:${t.context.port}/blank.gif` ||
       resource.mime !== 'image/gif'
     );
   };
