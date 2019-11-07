@@ -29,7 +29,7 @@ module.exports.getResource = (file, options = {}) => {
     ...options
   };
 
-  if (typeof opts.base === 'string') {
+  if (!Array.isArray(opts.base)) {
     opts.base = [opts.base];
   }
 
