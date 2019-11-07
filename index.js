@@ -1,6 +1,5 @@
 'use strict';
 
-const os = require('os');
 const debug = require('debug')('asset-resolver');
 const resolver = require('./lib/resolver');
 
@@ -38,11 +37,12 @@ module.exports.getResource = (file, options = {}) => {
   const promises = (opts.base || []).map(base => {
     return resolver.getResource(base, file, opts);
   });
+
   return any(promises).catch(error => {
     const msg = [`The file "${file}" could not be resolved because of:`].concat(
       error.map(err => err.message)
     );
     debug(msg);
-    return Promise.reject(new Error(msg.join(os.EOL)));
+    return Promise.reject(new Error(msg.join('\n')));
   });
 };
