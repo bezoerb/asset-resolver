@@ -92,6 +92,28 @@ test('should use consider sync filter', async t => {
   t.regex(error.message, /.*rejected by filter/);
 });
 
+test('should show all error messages', async t => {
+  const base = [
+    `//localhost:${t.context.port}/`,
+    `//localhost:100000/`,
+    __dirname
+  ];
+  const filter = resource => {
+    return (
+      resource.path !== `http://localhost:${t.context.port}/blank.gif` ||
+      resource.mime !== 'image/gif'
+    );
+  };
+
+  const error = await t.throwsAsync(async () => {
+    await resolver.getResource('blank.gif', {base, filter});
+  }, Error);
+
+  t.regex(error.message, /blank\.gif.*could not be resolved/);
+  t.regex(error.message, /Port should be >= 0 and < 65536/);
+  t.regex(error.message, /no such file or directory/);
+});
+
 test('should use consider async filter returning a promise', async t => {
   const base = ['//localhost/', path.join(__dirname, 'fixtures')];
   const filter = () => {
