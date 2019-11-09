@@ -1,5 +1,4 @@
 'use strict';
-const os = require('os');
 const defaults = require('lodash.defaults');
 const map = require('lodash.map');
 const debug = require('debug')('asset-resolver');
@@ -25,6 +24,6 @@ module.exports.getResource = function (file, opts) {
 	})).catch(Bluebird.AggregateError, errs => {
 		const msg = ['The file "' + file + '" could not be resolved because of:'].concat(map(errs, 'message'));
 		debug(msg);
-		return Bluebird.reject(new Error(msg.join(os.EOL)));
+		return Bluebird.reject(new Error(msg.join('\n')));
 	});
 };
