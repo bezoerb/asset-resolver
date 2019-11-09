@@ -14,7 +14,9 @@
     "node": ">= 6"
   },
   "scripts": {
-    "test": "xo && nyc ava"
+    "ava": "ava",
+    "xo": "xo",
+    "test": "npm run xo && nyc npm run ava"
   },
   "files": [
     "index.js",
@@ -29,13 +31,13 @@
     "bluebird": "^3.7.1",
     "debug": "^4.1.1",
     "globby": "^8.0.2",
+    "got": "^8.3.2",
     "lodash.defaults": "^4.2.0",
     "lodash.map": "^4.6.0",
     "lodash.reduce": "^4.6.0",
     "lodash.result": "^4.5.2",
     "meow": "^5.0.0",
-    "mime": "^2.4.4",
-    "request": "^2.88.0"
+    "mime": "^2.4.4"
   },
   "devDependencies": {
     "ava": "^1.4.1",
