@@ -49,9 +49,8 @@
     "space": 2,
     "prettier": true,
     "rules": {
-      "promise/valid-params": "off",
-      "promise/prefer-await-to-then": "off",
-      "capitalized-comments": "off"
+      "capitalized-comments": "off",
+      "promise/prefer-await-to-then": "off"
     }
   },
   "nyc": {
