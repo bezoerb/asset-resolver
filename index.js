@@ -5,7 +5,7 @@ const debug = require('debug')('asset-resolver');
 const Bluebird = require('bluebird');
 const resolver = require('./lib/resolver');
 
-module.exports.getResource = function (file, opts) {
+module.exports.getResource = (file, opts) => {
 	opts = defaults(opts || {}, {
 		base: [process.cwd()],
 		filter() {
@@ -13,7 +13,7 @@ module.exports.getResource = function (file, opts) {
 		}
 	});
 
-	if (typeof opts.base === 'string') {
+	if (!Array.isArray(opts.base)) {
 		opts.base = [opts.base];
 	}
 
@@ -22,7 +22,7 @@ module.exports.getResource = function (file, opts) {
 	return Bluebird.any(map(opts.base, base => { // eslint-disable-line promise/valid-params
 		return resolver.getResource(base, file, opts);
 	})).catch(Bluebird.AggregateError, errs => {
-		const msg = ['The file "' + file + '" could not be resolved because of:'].concat(map(errs, 'message'));
+		const msg = [`The file "${file}" could not be resolved because of:`].concat(map(errs, 'message'));
 		debug(msg);
 		return Bluebird.reject(new Error(msg.join('\n')));
 	});
