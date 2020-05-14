@@ -1,14 +1,14 @@
 'use strict';
 
-import fs from 'fs';
-import http from 'http';
-import path from 'path';
-import {promisify} from 'util';
-import finalhandler from 'finalhandler';
-import serveStatic from 'serve-static';
-import getPort from 'get-port';
-import test from 'ava';
-import resolver from '..';
+const fs = require('fs');
+const http = require('http');
+const path = require('path');
+const {promisify} = require('util');
+const finalhandler = require('finalhandler');
+const serveStatic = require('serve-static');
+const getPort = require('get-port');
+const test = require('ava');
+const resolver = require('..');
 
 const readFile = promisify(fs.readFile);
 
@@ -33,11 +33,14 @@ test.afterEach.cb((t) => {
 });
 
 test('should fail on wrong url', async (t) => {
-  const error = await t.throwsAsync(async () => {
-    await resolver.getResource('blank.gif', {
-      base: ['//localhost/']
-    });
-  }, Error);
+  const error = await t.throwsAsync(
+    async () => {
+      await resolver.getResource('blank.gif', {
+        base: ['//localhost/']
+      });
+    },
+    {instanceOf: Error}
+  );
 
   t.regex(error.message, /.*blank\.gif.*/);
 });
@@ -84,9 +87,12 @@ test('should use consider sync filter', async (t) => {
     );
   };
 
-  const error = await t.throwsAsync(async () => {
-    await resolver.getResource('blank.gif', {base, filter});
-  }, Error);
+  const error = await t.throwsAsync(
+    async () => {
+      await resolver.getResource('blank.gif', {base, filter});
+    },
+    {instanceOf: Error}
+  );
 
   t.regex(error.message, /blank\.gif.*could not be resolved/);
   t.regex(error.message, /.*rejected by filter/);
@@ -105,9 +111,12 @@ test('should show all error messages', async (t) => {
     );
   };
 
-  const error = await t.throwsAsync(async () => {
-    await resolver.getResource('blank.gif', {base, filter});
-  }, Error);
+  const error = await t.throwsAsync(
+    async () => {
+      await resolver.getResource('blank.gif', {base, filter});
+    },
+    {instanceOf: Error}
+  );
 
   t.regex(error.message, /blank\.gif.*could not be resolved/);
   t.regex(error.message, /Invalid URL.*10{5}/);
@@ -124,9 +133,12 @@ test('should use consider async filter returning a promise', async (t) => {
     });
   };
 
-  const error = await t.throwsAsync(async () => {
-    await resolver.getResource('check.svg', {base, filter});
-  }, Error);
+  const error = await t.throwsAsync(
+    async () => {
+      await resolver.getResource('check.svg', {base, filter});
+    },
+    {instanceOf: Error}
+  );
 
   t.regex(error.message, /check\.svg.*could not be resolved/);
 });
