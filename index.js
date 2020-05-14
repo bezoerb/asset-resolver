@@ -1,46 +1,47 @@
-"use strict";
+'use strict';
 
-const debug = require("debug")("asset-resolver");
-const resolver = require("./lib/resolver");
+const debug = require('debug')('asset-resolver');
+const resolver = require('./lib/resolver');
 
 function any(promises) {
-	return Promise.all(
-		promises.map((promise) =>
-			promise.then(
-				(val) => {
-					throw val;
-				},
-				(reason) => reason
-			)
-		)
-	).then(
-		(reasons) => {
-			throw reasons;
-		},
-		(firstResolved) => firstResolved
-	);
+  return Promise.all(
+    promises.map((promise) =>
+      promise.then(
+        (value) => {
+          throw value;
+        },
+        (error) => error
+      )
+    )
+  ).then(
+    (reasons) => {
+      throw reasons;
+    },
+    (error) => error
+  );
 }
 
 module.exports.getResource = (file, options = {}) => {
-	const opts = {
-		base: [process.cwd()],
-		filter: () => true,
-		...options,
-	};
+  const options_ = {
+    base: [process.cwd()],
+    filter: () => true,
+    ...options
+  };
 
-	if (!Array.isArray(opts.base)) {
-		opts.base = [opts.base];
-	}
-	opts.base = resolver.glob([...opts.base]);
+  if (!Array.isArray(options_.base)) {
+    options_.base = [options_.base];
+  }
 
-	const promises = (opts.base || []).map((base) => {
-		return resolver.getResource(base, file, opts);
-	});
-	return any(promises).catch((error) => {
-		const msg = [`The file "${file}" could not be resolved because of:`].concat(
-			error.map((err) => err.message)
-		);
-		debug(msg);
-		return Promise.reject(new Error(msg.join("\n")));
-	});
+  options_.base = resolver.glob([...options_.base]);
+
+  const promises = (options_.base || []).map((base) => {
+    return resolver.getResource(base, file, options_);
+  });
+  return any(promises).catch((error) => {
+    const message = [
+      `The file "${file}" could not be resolved because of:`
+    ].concat(error.map((err) => err.message));
+    debug(message);
+    return Promise.reject(new Error(message.join('\n')));
+  });
 };

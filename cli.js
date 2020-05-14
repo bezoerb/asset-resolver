@@ -27,9 +27,9 @@ const cli = meow(
 
 resolver
   .getResource(cli.input[0], cli.flags)
-  .then(resource => {
+  .then((resource) => {
     console.log(resource.contents);
   })
-  .catch(error => {
+  .catch((error) => {
     console.error(error.message || error);
   });
