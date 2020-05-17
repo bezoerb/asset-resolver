@@ -50,6 +50,7 @@
     "space": 2,
     "prettier": true,
     "rules": {
+      "no-await-in-loop": "off",
       "capitalized-comments": "off",
       "promise/prefer-await-to-then": "off"
     }

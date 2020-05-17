@@ -63,7 +63,7 @@ test('should find the file by file', async (t) => {
   });
 
   t.is(result.contents.toString(), expected.toString());
-  t.is(result.path, path.join('test', 'fixtures', 'check.svg'));
+  t.is(result.path, path.join(__dirname, 'fixtures', 'check.svg'));
   t.is(result.mime, 'image/svg+xml');
 });
 
@@ -120,7 +120,7 @@ test('should show all error messages', async (t) => {
 
   t.regex(error.message, /blank\.gif.*could not be resolved/);
   t.regex(error.message, /Invalid URL.*10{5}/);
-  t.regex(error.message, /no such file or directory/);
+  t.regex(error.message, /No such file or directory/);
 });
 
 test('should use consider async filter returning a promise', async (t) => {
