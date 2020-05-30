@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-"use strict";
+'use strict';
 
-const meow = require("meow");
-const resolver = require(".");
+const meow = require('meow');
+const resolver = require('.');
 
 const cli = meow(
-	`
+  `
 Usage
   $ asset-resolver <input>
 
@@ -20,21 +20,21 @@ Examples
   ...
   </svg>
 `,
-	{
-		flags: {
-			base: {
-				type: "string",
-				alias: "b",
-			},
-		},
-	}
+  {
+    flags: {
+      base: {
+        type: 'string',
+        alias: 'b'
+      }
+    }
+  }
 );
 
 resolver
-	.getResource(cli.input[0], cli.flags)
-	.then((resource) => {
-		console.log(resource.contents.toString());
-	})
-	.catch((error) => {
-		console.error(error.message || error);
-	});
+  .getResource(cli.input[0], cli.flags)
+  .then((resource) => {
+    console.log(resource.contents.toString());
+  })
+  .catch((error) => {
+    console.error(error.message || error);
+  });
