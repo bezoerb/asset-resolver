@@ -30,18 +30,18 @@
   "dependencies": {
     "debug": "^4.1.1",
     "globby": "^11.0.1",
-    "got": "^11.3.0",
-    "meow": "^7.0.1",
+    "got": "^11.6.0",
+    "meow": "^7.1.1",
     "mime": "^2.4.6",
     "normalize-path": "^3.0.0"
   },
   "devDependencies": {
-    "ava": "^3.9.0",
+    "ava": "^3.12.1",
     "finalhandler": "^1.1.2",
     "get-port": "^5.1.1",
     "nyc": "^15.1.0",
     "serve-static": "^1.14.1",
-    "xo": "^0.32.0"
+    "xo": "^0.33.1"
   },
   "xo": {
     "envs": [
@@ -54,6 +54,9 @@
       "capitalized-comments": "off",
       "promise/prefer-await-to-then": "off"
     }
+  },
+  "prettier": {
+    "useTabs": false
   },
   "nyc": {
     "reporter": [
