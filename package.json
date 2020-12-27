@@ -9,7 +9,9 @@
     "email": "ben@sommerlaune.com",
     "url": "https://www.sommerlaune.com"
   },
-  "bin": "cli.js",
+  "bin": {
+    "asset-resolver": "cli.js"
+  },
   "engines": {
     "node": ">=10.19.0"
   },
@@ -28,20 +30,20 @@
     "resolve"
   ],
   "dependencies": {
-    "debug": "^4.1.1",
+    "debug": "^4.3.1",
     "globby": "^11.0.1",
-    "got": "^11.6.0",
+    "got": "^11.8.1",
     "meow": "^7.1.1",
-    "mime": "^2.4.6",
+    "mime": "^2.4.7",
     "normalize-path": "^3.0.0"
   },
   "devDependencies": {
-    "ava": "^3.12.1",
+    "ava": "^3.14.0",
     "finalhandler": "^1.1.2",
     "get-port": "^5.1.1",
     "nyc": "^15.1.0",
     "serve-static": "^1.14.1",
-    "xo": "^0.33.1"
+    "xo": "^0.36.1"
   },
   "xo": {
     "envs": [
